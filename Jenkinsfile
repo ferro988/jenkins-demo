@@ -1,9 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'node:20-alpine' }
+    }
     stages {
         stage('Checkout') {
             steps {
-                echo "Building local branch"
+                echo "Building ${env.BRANCH_NAME ?: 'local'} branch"
             }
         }
         stage('Install') {
@@ -24,8 +26,8 @@ pipeline {
         }
     }
     post {
-        success { echo '✅ Pipeline succeeded' }
-        failure { echo '❌ Pipeline failed — check console output' }
+        success { echo 'Pipeline succeeded' }
+        failure { echo 'Pipeline failed — check console output' }
         always  { echo "Finished build #${env.BUILD_NUMBER}" }
     }
 }
