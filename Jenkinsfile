@@ -1,11 +1,9 @@
 pipeline {
-    agent any {
-        docker { image 'node:20-alpine' }
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
-                echo "Building ${env.BRANCH_NAME ?: 'local'} branch"
+                echo "Building local branch"
             }
         }
         stage('Install') {
